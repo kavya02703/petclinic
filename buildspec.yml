@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+       - export AWS_ACCESS_KEY_ID=AKIAVKALHN45R3FZ43FQ
+       - export AWS_SECRET_ACCESS_KEY=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
+       - export AWS_DEFAULT_REGION=eu-central-1
+       - cd spring-boot
+       - mvn clean package sonar:sonar -Dsonar.login=e208a5ab6d0cb1be115e685fd0f3536125877cdc
+       - $(aws ecr get-login --no-include-email --region eu-central-1)
+       - docker build -t dockerpetclinic .
+       - docker tag dockerpetclinic:latest 365095776059.dkr.ecr.eu-central-1.amazonaws.com/dockerpetclinic:latest
+       - docker push 365095776059.dkr.ecr.eu-central-1.amazonaws.com/dockerpetclinic:latest

@@ -1,0 +1,23 @@
+- name: running configure's
+  shell: sh cred.sh
+  become: yes
+  tags:
+   - deploy
+
+- name: intialize aws ecr
+  shell: "$(aws ecr get-login --no-include-email --region eu-central-1)"
+  become: yes
+  tags: 
+   - deploy
+
+- name: Docker pull
+  shell: "docker pull 365095776059.dkr.ecr.eu-central-1.amazonaws.com/dockerpetclinic:latest"
+  become: yes
+  tags:
+   - deploy
+
+- name: docker run the container
+  shell: "docker run -d -p 8080:8080 365095776059.dkr.ecr.eu-central-1.amazonaws.com/dockerpetclinic:latest" 
+  become: yes
+  tags:
+   - run

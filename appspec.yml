@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+   - source: /
+     destination: /etc/ansible/codedeploy
+hooks:
+  BeforeInstall:
+     - location: install
+       timeout: 300
+       runas: root
+      
+  ApplicationStart:
+     - location: start
+       timeout: 300
+       runas: root

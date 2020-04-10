@@ -1,0 +1,3 @@
+#!/bin/bash
+ls -al
+ansible-playbook /etc/ansible/codedeploy/ansible/file.yml -vvv

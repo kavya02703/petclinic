@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip
+      - unzip ./terraform_0.12.19_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+      - terraform -v
+  build:
+    commands:
+       - export AWS_ACCESS_KEY_ID=AKIAVKALHN45R3FZ43FQ
+       - export AWS_SECRET_ACCESS_KEY=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
+       - export AWS_DEFAULT_REGION=eu-central-1
+       - ls -al
+       - cd terraform_instance
+       - terraform init -upgrade -backend-config="bucket=petclinic-docker" -backend-config="key=instance/terraform.tfstate"  -backend-config="dynamodb_table=mys3key" -backend-config="region=eu-central-1"
+       - terraform plan
+       - terraform apply -auto-approve
