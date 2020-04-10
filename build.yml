@@ -5,3 +5,4 @@ phases:
     commands:
        - javac API.java
        - java API
+       - ls
